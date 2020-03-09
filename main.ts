@@ -1,6 +1,6 @@
-sprites.onCreated(SpriteKind.Projectile, function (sprite2) {
-	
-})
+namespace SpriteKind {
+    export const spriteProjectile = SpriteKind.create()
+}
 scene.onHitTile(SpriteKind.Player, 13, function (sprite2) {
     level += 1
     tileMaps()
@@ -165,7 +165,7 @@ function secondMessage () {
     game.splash("// Transmission Ends //")
 }
 function lifeSystem () {
-    info.setLife(10)
+    info.setLife(100000)
 }
 function camera () {
     scene.cameraFollowSprite(spaceShip)
@@ -1077,12 +1077,12 @@ function spriteBullet () {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
-. . . . . . a a a a . . . . . . 
-. . . . . a . . . . a . . . . . 
-. . . . . a . . . . a . . . . . 
-. . . . . a . . . . a . . . . . 
-. . . . . a . . . . a . . . . . 
-. . . . . . a a a a . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -1090,6 +1090,27 @@ function spriteBullet () {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `, spaceShip, 0, -50)
+    if (spaceShip.kind() == SpriteKind.Player) {
+        projectile.setKind(SpriteKind.spriteProjectile)
+        projectile.setImage(img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . a a a a a . . . . . . 
+. . . . a . . . . . a . . . . . 
+. . . . a . . . . . a . . . . . 
+. . . . a . . . . . a . . . . . 
+. . . . a . . . . . a . . . . . 
+. . . . a . . . . . a . . . . . 
+. . . . . a a a a a . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`)
+    }
 }
 function levell3Score () {
     info.changeScoreBy(3)
@@ -1101,6 +1122,10 @@ function thirdMessage () {
     game.splash("You have been authorized to use force.")
     game.splash("// Transmission Ends //")
 }
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.spriteProjectile, function (sprite2, otherSprite) {
+    sprite2.destroy()
+    otherSprite.destroy()
+})
 function level3Asteroids () {
     if (level == 2) {
         constantAsteroid = img`
