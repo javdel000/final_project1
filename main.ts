@@ -142,7 +142,7 @@ function level2Stars () {
 function level3 () {
     if (level == 2) {
         // makes spaceShip go up no matter what
-        spaceShip.ay = -300
+        spaceShip.vy = -10
     }
     if (level == 2) {
         thirdMessage()
@@ -1089,23 +1089,99 @@ function spriteBullet () {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
-`, spaceShip, 0, -50)
+`, spaceShip, 0, -1000)
+    projectile2 = sprites.createProjectileFromSprite(img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`, spaceShip, 0, -1000)
+    projectile3 = sprites.createProjectileFromSprite(img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`, spaceShip, 0, -1000)
+    projectile2.setPosition(projectile.x - 20, projectile.y)
+    projectile3.setPosition(projectile.x - -20, projectile.y)
     if (spaceShip.kind() == SpriteKind.Player) {
         projectile.setKind(SpriteKind.spriteProjectile)
         projectile.setImage(img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
+. . . . 4 4 4 4 4 4 4 . . . . . 
+. . . 4 4 4 4 4 4 4 4 4 . . . . 
+. . 4 4 4 a a a a a 4 4 4 . . . 
+. . 4 4 a a a a a a a 4 4 . . . 
+. . 4 4 a a c c c a a 4 4 . . . 
+. . 4 4 a a c c c a a 4 4 . . . 
+. . 4 4 a a c c c a a 4 4 . . . 
+. . 4 4 a a a a a a a 4 4 . . . 
+. . 4 4 4 a a a a a 4 4 4 . . . 
+. . . 4 4 4 4 4 4 4 4 4 . . . . 
+. . . . 4 4 4 4 4 4 4 . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
-. . . . . a a a a a . . . . . . 
-. . . . a . . . . . a . . . . . 
-. . . . a . . . . . a . . . . . 
-. . . . a . . . . . a . . . . . 
-. . . . a . . . . . a . . . . . 
-. . . . a . . . . . a . . . . . 
-. . . . . a a a a a . . . . . . 
+. . . . . . . . . . . . . . . . 
+`)
+        projectile2.setKind(SpriteKind.spriteProjectile)
+        projectile2.setImage(img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
+. . . . 4 4 4 4 4 4 4 . . . . . 
+. . . 4 4 4 4 4 4 4 4 4 . . . . 
+. . 4 4 4 a a a a a 4 4 4 . . . 
+. . 4 4 a a a a a a a 4 4 . . . 
+. . 4 4 a a c c c a a 4 4 . . . 
+. . 4 4 a a c c c a a 4 4 . . . 
+. . 4 4 a a c c c a a 4 4 . . . 
+. . 4 4 a a a a a a a 4 4 . . . 
+. . 4 4 4 a a a a a 4 4 4 . . . 
+. . . 4 4 4 4 4 4 4 4 4 . . . . 
+. . . . 4 4 4 4 4 4 4 . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`)
+        projectile3.setKind(SpriteKind.spriteProjectile)
+        projectile3.setImage(img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . 4 4 4 4 4 4 4 . . . . . 
+. . . 4 4 4 4 4 4 4 4 4 . . . . 
+. . 4 4 4 a a a a a 4 4 4 . . . 
+. . 4 4 a a a a a a a 4 4 . . . 
+. . 4 4 a a c c c a a 4 4 . . . 
+. . 4 4 a a c c c a a 4 4 . . . 
+. . 4 4 a a c c c a a 4 4 . . . 
+. . 4 4 a a a a a a a 4 4 . . . 
+. . 4 4 4 a a a a a 4 4 4 . . . 
+. . . 4 4 4 4 4 4 4 4 4 . . . . 
+. . . . 4 4 4 4 4 4 4 . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -1314,6 +1390,8 @@ let asteroid2: Image = null
 let asteroid1: Image = null
 let gap = 0
 let constantAsteroid: Image = null
+let projectile3: Sprite = null
+let projectile2: Sprite = null
 let projectile: Sprite = null
 let list: Image[] = []
 let asteroidProjectile: Sprite = null
