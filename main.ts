@@ -1,6 +1,10 @@
 namespace SpriteKind {
     export const spriteProjectile = SpriteKind.create()
 }
+function level3Buttons () {
+    // Allows you to move side to side
+    controller.moveSprite(spaceShip, 500, 10)
+}
 scene.onHitTile(SpriteKind.Player, 13, function (sprite2) {
     level += 1
     tileMaps()
@@ -11,7 +15,9 @@ scene.onHitTile(SpriteKind.Player, 13, function (sprite2) {
         level4()
     }
     if (level == 3) {
-        level5()
+        level5Message()
+        lastLevel()
+        level3Buttons()
     }
 })
 function level4 () {
@@ -21,6 +27,7 @@ function level4 () {
     }
     if (level == 2) {
         thirdMessage()
+        tiles.placeOnTile(spaceShip, tiles.getTileLocation(4, 235))
     }
 }
 function sprite () {
@@ -64,30 +71,9 @@ function sprite () {
 `, SpriteKind.Player)
     // makes spaceShip go up no matter what
     spaceShip.ay = -90
-    // Allows you to move side to side
-    controller.moveSprite(spaceShip, 500, 5000)
     spaceShip.setPosition(80, 4000)
 }
-function level5Buttons () {
-    if (level == 3) {
-        // Allows you to move side to side
-        controller.moveSprite(spaceShip, 500, 500)
-    }
-}
-function level3Buttons () {
-    if (level == 2) {
-        // Allows you to move side to side
-        controller.moveSprite(spaceShip, 500, 10)
-    }
-}
-function level5Message () {
-    game.splash("// Transmission Begins //")
-    game.splash("All the FBLA books", "are in the package")
-    game.splash("It's too late.", "Destroy it before it")
-    game.splash("Get in the", "wrong hands")
-    game.splash("// Transmission Ends //")
-}
-function level5 () {
+function lastLevel () {
     if (level == 3) {
         // makes spaceShip go up no matter what
         spaceShip.ay = 0
@@ -112,7 +98,8 @@ function level5 () {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `, SpriteKind.Food)
-        tiles.placeOnTile(_package, tiles.getTileLocation(7, 7))
+        tiles.placeOnTile(_package, tiles.getTileLocation(8, 9))
+        tiles.placeOnTile(spaceShip, tiles.getTileLocation(8, 13))
     }
 }
 function level2Stars () {
@@ -205,9 +192,12 @@ function level2 () {
     if (level == 1) {
         // makes spaceShip go up no matter what
         spaceShip.ay = -300
+        // Allows you to move side to side
+        controller.moveSprite(spaceShip, 500, 0)
     }
     if (level == 1) {
         secondMessage()
+        tiles.placeOnTile(spaceShip, tiles.getTileLocation(4, 235))
     }
 }
 function secondMessage () {
@@ -218,7 +208,7 @@ function secondMessage () {
     game.splash("// Transmission Ends //")
 }
 function lifeSystem () {
-    info.setLife(15)
+    info.setLife(99999)
 }
 function camera () {
     scene.cameraFollowSprite(spaceShip)
@@ -1013,7 +1003,6 @@ f f 5 f f f f f f f f f f f f f
 f f f f f f f f f f f f f f f f 
 `]
     scene.setTileMap(list[level])
-    tiles.placeOnTile(spaceShip, tiles.getTileLocation(3, 248))
 }
 function startingText () {
     scene.setBackgroundImage(img`
@@ -1143,7 +1132,7 @@ f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f f 
     game.splash("We will identify and", "provide details on the way.")
     game.splash("Good Luck Recruit. We are", "all counting on you.")
     game.splash("// Transmission Ends //")
-    game.splash("use AWDS to move")
+    game.splash("USE AWDS TO MOVE")
 }
 function spriteBullet () {
     projectile = sprites.createProjectileFromSprite(img`
@@ -1266,6 +1255,13 @@ sprites.onOverlap(SpriteKind.spriteProjectile, SpriteKind.Food, function (sprite
     otherSprite.destroy()
     game.over(true, effects.confetti)
 })
+function level5Message () {
+    game.splash("// Transmission Begins //")
+    game.splash("All the FBLA books", "are in the package")
+    game.splash("It's too late.", "Destroy it before it")
+    game.splash("Get in the", "wrong hands")
+    game.splash("// Transmission Ends //")
+}
 function levell3Score () {
     info.changeScoreBy(3)
 }
@@ -1276,7 +1272,7 @@ function thirdMessage () {
     game.splash("You have been", "Authorized to use")
     game.splash("Boosters and", "Force")
     game.splash("// Transmission Ends //")
-    game.splash("Use space to shoot and the bottom to stop")
+    game.splash("USE SPACE TO FIRE AND S TO STOP")
 }
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.spriteProjectile, function (sprite2, otherSprite) {
     sprite2.destroy()
@@ -1505,18 +1501,25 @@ tileMaps()
 sprite()
 camera()
 lifeSystem()
+// Allows you to move side to side
+controller.moveSprite(spaceShip, 500, 5000)
 game.onUpdateInterval(100, function () {
     level3Asteroids()
 })
-game.onUpdateInterval(1500, function () {
+game.onUpdateInterval(1400, function () {
     if (level == 0) {
         level1Asteroids()
     }
 })
 game.onUpdate(function () {
+    if (level == 2) {
+        level3Buttons()
+    }
+})
+game.onUpdate(function () {
     spaceShip.setFlag(SpriteFlag.StayInScreen, true)
 })
-game.onUpdateInterval(800, function () {
+game.onUpdateInterval(700, function () {
     if (level == 1) {
         level2Stars()
     }
