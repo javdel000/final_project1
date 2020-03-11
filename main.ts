@@ -1327,7 +1327,6 @@ function level3Asteroids () {
 }
 info.onLifeZero(function () {
     // you lose if life = 0
-    //
     game.over(false)
 })
 function level1Asteroids () {
